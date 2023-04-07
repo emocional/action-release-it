@@ -22,11 +22,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Git config
-      shell: sh
-      run: |
-        git config --global user.email "${{ inputs.git-mail }}"
-        git config --global user.name "${{ inputs.git-name }}"
+    - uses: emocional/action-git-config@main
+      with:
+        git-mail: ${{ inputs.git-mail }}
+        git-name: ${{ inputs.git-name }}
 
     - name: Release
       run: pnpm release-it --ci
