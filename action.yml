@@ -1,0 +1,34 @@
+name: release-it
+description: 'Release with release it'
+
+branding:
+  icon: 'airplay'
+  color: 'red'
+
+inputs:
+  git-name:
+    description: git user name
+    default: I am your father
+  git-mail:
+    description: git user email
+    default: noreply@github.com
+  token:
+    description: github token
+    default: ${{ github.token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Git config
+      shell: sh
+      run: |
+        git config --global user.email "${{ inputs.git-mail }}"
+        git config --global user.name "${{ inputs.git-name }}"
+
+    - name: Release
+      run: pnpm release-it --ci
+      shell: sh
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        NODE_AUTH_TOKEN: ${{ inputs.token }}
+
