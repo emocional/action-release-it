@@ -15,6 +15,9 @@ inputs:
   token:
     description: github token
     default: ${{ github.token }}
+  npm-token:
+    description: npm-token
+    default: ${{ github.token }}
 
 runs:
   using: 'composite'
@@ -30,5 +33,5 @@ runs:
       shell: sh
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
-        NODE_AUTH_TOKEN: ${{ inputs.token }}
+        NODE_AUTH_TOKEN: ${{ inputs.npm-token }}
 
