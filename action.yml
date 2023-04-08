@@ -7,11 +7,11 @@ branding:
 
 inputs:
   git-name:
+    required: false
     description: git user name
-    default: I am your father
   git-mail:
+    required: false
     description: git user email
-    default: noreply@github.com
   token:
     description: github token
     default: ${{ github.token }}
