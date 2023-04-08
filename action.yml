@@ -27,6 +27,9 @@ runs:
         git-mail: ${{ inputs.git-mail }}
         git-name: ${{ inputs.git-name }}
 
+    - shell: sh
+      run: pnpm install --frozen-lockfile
+
     - name: Release
       run: pnpm release-it --ci
       shell: sh
