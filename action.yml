@@ -18,6 +18,10 @@ inputs:
   npm-token:
     description: npm-token
     default: ${{ github.token }}
+  # TODO: https://github.com/orgs/community/discussions/25742
+  working-directory:
+    description: working directory
+    default: '.'
 
 runs:
   using: 'composite'
@@ -29,9 +33,11 @@ runs:
 
     - shell: sh
       run: pnpm install --frozen-lockfile
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Release
       run: pnpm release-it --ci
+      working-directory: ${{ inputs.working-directory }}
       shell: sh
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
