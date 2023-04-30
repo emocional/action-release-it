@@ -9,11 +9,24 @@ inputs:
   working-directory:
     description: working directory
     default: '.'
+  app-key:
+    description: github app private key
+  app-id:
+    description: github app id
+  app-email:
+    description: github app no reply email
+  app:
+    description: github app name
 
 runs:
   using: 'composite'
   steps:
     - uses: emocional/action-git-config@main
+      with:
+        app: ${{ inputs.app }}
+        app-id: ${{ inputs.app-id }}
+        app-email: ${{ inputs.app-email }}
+        app-key: ${{ inputs.app-key }}
       id: get_token
 
     - shell: sh
