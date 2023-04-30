@@ -6,19 +6,6 @@ branding:
   color: 'red'
 
 inputs:
-  git-name:
-    description: git user name
-    default: I am your father
-  git-mail:
-    description: git user email
-    default: 121049410+i-amyourfather@users.noreply.github.com
-  token:
-    description: github token
-    default: ${{ github.token }}
-  npm-token:
-    description: npm-token
-    default: ${{ github.token }}
-  # TODO: https://github.com/orgs/community/discussions/25742
   working-directory:
     description: working directory
     default: '.'
@@ -27,9 +14,7 @@ runs:
   using: 'composite'
   steps:
     - uses: emocional/action-git-config@main
-      with:
-        git-mail: ${{ inputs.git-mail }}
-        git-name: ${{ inputs.git-name }}
+      id: get_token
 
     - shell: sh
       run: pnpm install --frozen-lockfile
@@ -40,6 +25,6 @@ runs:
       working-directory: ${{ inputs.working-directory }}
       shell: sh
       env:
-        GITHUB_TOKEN: ${{ inputs.token }}
-        NODE_AUTH_TOKEN: ${{ inputs.npm-token }}
+        GITHUB_TOKEN: ${{ steps.get_token.outputs.token }}
+        NODE_AUTH_TOKEN: ${{ steps.get_token.outputs.token }}
 
